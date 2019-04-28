@@ -9,22 +9,26 @@ class App extends Component {
       {
         name: "Guil",
         id: 1,
-        score: 0
+        score: 0,
+        isWinning: false,
       },
       {
         name: "Treasure",
         id: 2,
-        score: 0
+        score: 0,
+        isWinning: false
       },
       {
         name: "Ashley",
         id: 3,
-        score: 0
+        score: 0,
+        isWinning: false
       },
       {
         name: "James",
         id: 4,
-        score: 0
+        score: 0,
+        isWinning: false
       }
     ]
   };
@@ -32,11 +36,21 @@ class App extends Component {
   // player id counter
   prevPlayerId = 4; 
 
+  getHighScore = () => {
+    const scores = this.state.players.map( p => p.score );
+    const highScore = Math.max(...scores);
+
+    if (highScore) {
+      return highScore;
+    }
+
+    return null
+  }
+
   handleScoreChange = (index, delta) => {
     this.setState( prevState => ({
-        score: prevState.players[index].score += delta
+      score: prevState.players[index].score += delta
     }));
-    console.log('index: ' + index)
   }
 
   handleAddPlayer = (name) => {
@@ -63,6 +77,8 @@ class App extends Component {
   }
 
   render() {
+    const highScore = this.getHighScore();
+
     return (
       <div className="scoreboard">
         <Header 
@@ -78,7 +94,8 @@ class App extends Component {
             index={index}
             key={player.id.toString()} 
             changeScore={this.handleScoreChange}
-            removePlayer={this.handleRemovePlayer}           
+            removePlayer={this.handleRemovePlayer}
+            isWinning={highScore === player.score}
           />
         )}
 
