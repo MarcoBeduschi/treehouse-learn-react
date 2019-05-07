@@ -9,7 +9,6 @@ const PlayerList = () => {
         <React.Fragment>
           {players.map( (player, index) =>
            <Player 
-              {...player}
               key={player.id.toString()} 
               index={index}
             />

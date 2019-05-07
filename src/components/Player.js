@@ -7,30 +7,26 @@ import Icon from './Icon';
 class Player extends PureComponent {
 
   static PropTypes = {
-    name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
     isWinning: PropTypes.bool
   }
   
   render() {
     const {
-      id,
       index,
-      name,
       isWinning
     } = this.props
 
     return (
       <Consumer>
-        { ({ actions }) =>(
+        { ({ actions, players }) =>(
           <div className="player">
             <span className="player-name">
-              <button className="remove-player" onClick={() => actions.removePlayer(id)}>✖</button>
+              <button className="remove-player" onClick={() => actions.removePlayer(players[index].id)}>✖</button>
 
               <Icon isHighScore={isWinning} />
               
-              { name }
+              { players[index].name }
             </span>
       
             <Counter
